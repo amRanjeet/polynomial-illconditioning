@@ -1,16 +1,21 @@
-# polynomial illconditioning
-# poly 1 take any polynomial of any degree with one variable
+# poly_all -  all variable polynomials
 from fractions import Fraction
 
-class poly1:
-    def __init__(self, degree, varNum, listCoeff, listofVal, digRound):
+class poly_all:
+        def __init__(self, degree, varNum, listCoeff, listofVal, digRound):
+        # the input should be the degree,
+        # the number of variables,
+        # list of coefficients: each a tuple the length of varNum + 1
+        #       the first varNum of the tuple are the degree of individual
+        #       variables
+        # list of values of the variables,
+        # and the number of digits to round to
         self.degree = degree
         self.varNum = varNum
         self.LC = listCoeff
         self.LV = listofVal
         self.DR = digRound
         self.pr = []
-        
 
     def getEstimate(self):
         def runEstimate():
@@ -18,7 +23,17 @@ class poly1:
             for i in range(self.DR +1):
                 self.pr.append(0)
             x = 0
-            for j in range(self.degree+1):
+            for j in range(len(self.LC)+1):
+                if(len (self.LC[j]) != varNum+1):
+                    raise NameError("length of tuple in list of coeficient is not correct in index: " + j)
+                z = self.LC[j]
+                total = 0
+                for i in range(varNum):
+                    total =  total + z[i]
+                    if(total > degree):
+                        raise NameError("degree is greater than expected")
+                    self.LV[i] ** z[i]
+                    
                 self.pr[0] = self.pr[0] + self.LC[j] * (self.LV[0]**(self.degree - j))
                 for i in range(self.DR):
                     if(type(self.LV[0]) is Fraction):
@@ -31,20 +46,10 @@ class poly1:
         #runEstimate()        
         # run check to see if all condition met - which function to use,
         # all variable present, etc. Make sure there are no errors
-        if(self.degree != len(self.LC)-1):
-            raise NameError("Degree and length of the list of Coefficient do not match")
-        elif(self.varNum != 1):
-            raise NameError("Incorrect polynomal class used.")
-        elif(len(self.LV) != 1):
+        if(len(self.LV) != self.varNum):
             raise NameError("Amount of values does not match the number of variables")
         elif(10 < self.DR or self.DR < 1):
             raise NameErroe("Choose a different digit to round to: should be between 1 and 10")
         else:
             runEstimate()
-
-
-if __name__ == '__main__':    
-    x = poly1(3, 1, [1, 3, 2, 5], [Fraction(-1,3)], 6)
-    x.getEstimate()
-    y = poly1(2, 1, [1, 1, 0], [Fraction(-1,3)], 6)
-    y.getEstimate()
+    
