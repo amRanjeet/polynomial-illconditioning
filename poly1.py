@@ -15,7 +15,7 @@ class poly1:
     def getEstimate(self):
         def runEstimate():
             self.pr = []
-            for i in range(self.DR +1):
+            for i in range(self.DR+1):
                 self.pr.append(0)
             x = 0
             for j in range(self.degree+1):
@@ -44,7 +44,7 @@ class poly1:
 
 
 if __name__ == '__main__':    
-    x = poly1(3, 1, [1, 3, 2, 5], [Fraction(-1,3)], 6)
+    x = poly1(3, 1, [1, 3, 2, 5], [Fraction(-1,3)], 10)
     x.getEstimate()
-    y = poly1(2, 1, [1, 1, 0], [Fraction(-1,3)], 6)
+    y = poly1(2, 1, [1, -1, 0], [Fraction(-1,3)], 10)
     y.getEstimate()

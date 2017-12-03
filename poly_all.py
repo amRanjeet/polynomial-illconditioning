@@ -21,12 +21,12 @@ class poly_all:
         def getEstimate(self):
                 def runEstimate():
                         self.pr = []
-                        for i in range(self.DR +1):
+                        for i in range(self.DR):
                                 self.pr.append(0)
                         x = 0
                         for i in self.LC:
                                 if(len(i) != self.varNum+1):
-                                        raise NameError("length of tuple in list of coeficient is not correct in index: " + j)
+                                        raise NameError("length of tuple in list of coeficient is not correct in index: " + str(i))
                                 y = 1 # used for exact
                                 z = 1 # used for rounded values
                                 total = 0 # making sure degree is less than or equal to expected amount
@@ -40,7 +40,7 @@ class poly_all:
                         self.pr[0] = round(x.numerator/x.denominator, 10)
 
                         x = 0
-                        for k in range(self.DR):
+                        for k in range(1, self.DR):
                                 x = 0
                                 z = z * i[len(self.LV)]
                                 for i in self.LC:
@@ -53,7 +53,7 @@ class poly_all:
                                                         z = z * (self.LV[j] ** i[j])
                                         z = z * i[len(self.LV)]
                                         x = x + z
-                                self.pr[k+1] = round(x, 10)
+                                self.pr[k] = round(x, 10)
                         print(self.pr)
         #runEstimate()        
         # run check to see if all condition met - which function to use,
@@ -64,6 +64,12 @@ class poly_all:
                         raise NameError("Choose a different digit to round to: should be between 1 and 10")
                 else:
                         runEstimate()
+        def printEQ(self):
+                print(self.degree)
+                print(self.varNum)
+                print(self.LC)
+                print(self.LV)
+                print(self.DR)
 
 
     
@@ -71,7 +77,7 @@ class poly_all:
 if __name__ == '__main__':    
     x = poly_all(3, 2, [(3, 0, 5), (2, 1, 2), (1, 1, 1)], [Fraction(-1,3), Fraction(1, 7)], 6)
     x.getEstimate()
-    y = poly2(3, 2, [(3, 0, 5), (2, 1, 2), (1, 1, 1)], [Fraction(-1,3), Fraction(1, 7)], 6)
+    y = poly2(3, 2, [(3, 0, 5), (2, 1, 2), (1, 1, 1)], [Fraction(-1,3), Fraction(1, 7)],10)
     y.getEstimate()
 
     

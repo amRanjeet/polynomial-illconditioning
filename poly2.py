@@ -20,7 +20,7 @@ class poly2:
     def getEstimate(self):
         def runEstimate():
             self.pr = []
-            for i in range(self.DR +1):
+            for i in range(self.DR):
                 self.pr.append(0)
             x = 0
             y = 0
@@ -32,14 +32,14 @@ class poly2:
                     raise NameError("degree is greater than expected")
                     
                 self.pr[0] = self.pr[0] + z[2] * (self.LV[0]**(z[0])) * (self.LV[1]**(z[1]))
-                for i in range(self.DR):
+                for i in range(1,self.DR):
                     if(type(self.LV[0]) is Fraction):
                         x = round(self.LV[0].numerator/self.LV[0].denominator, i)
                         y = round(self.LV[1].numerator/self.LV[1].denominator, i)
                     else:
                         raise NameError("you are not using fractions for the list of values")
                         x = self.LV[0]
-                    self.pr[i+1] = round( (self.pr[i+1] + z[2] * round((x**(z[0])), self.DR) * round((y**(z[1])),self.DR)), 10)
+                    self.pr[i] = round( (self.pr[i] + z[2] * round((x**(z[0])), self.DR) * round((y**(z[1])),self.DR)), 10)
             self.pr[0] = round(self.pr[0].numerator/self.pr[0].denominator, 10)
             print(self.pr)
         #runEstimate()        
@@ -53,7 +53,7 @@ class poly2:
             runEstimate()
     
 if __name__ == '__main__':    
-    x = poly2(3, 2, [(3, 0, 5), (2, 1, 2), (1, 1, 1)], [Fraction(-1,3), Fraction(1, 7)], 6)
+    x = poly2(3, 2, [(3, 0, 5), (2, 1, 2), (1, 1, 1)], [Fraction(-1,3), Fraction(1, 7)], 10)
     x.getEstimate()
 
 

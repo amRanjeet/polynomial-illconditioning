@@ -12,7 +12,7 @@ class poly3:
     def getEstimate(self):
         def runEstimate():
             self.pr = []
-            for i in range(self.DR +1):
+            for i in range(self.DR):
                 self.pr.append(0)
             w = 0
             x = 0
@@ -25,7 +25,7 @@ class poly3:
                     raise NameError("degree is greater than expected")
                     
                 self.pr[0] = self.pr[0] + z[3] * (self.LV[0]**(z[0])) * (self.LV[1]**(z[1])) *(self.LV[2]**(z[2]))
-                for i in range(self.DR):
+                for i in range(1,self.DR):
                     if(type(self.LV[0]) is Fraction):
                         w = round(self.LV[0].numerator/self.LV[0].denominator, i)
                         x = round(self.LV[1].numerator/self.LV[1].denominator, i)
@@ -33,7 +33,7 @@ class poly3:
                     else:
                         raise NameError("you are not using fractions for the list of values")
                         w = self.LV[0]
-                    self.pr[i+1] = round( (self.pr[i+1] + z[3] *
+                    self.pr[i] = round( (self.pr[i] + z[3] *
                                            round((w**(z[0])), self.DR) *
                                            round((x**(z[1])),self.DR) *
                                            round((y**(z[2])),self.DR)), 10)
