@@ -24,12 +24,21 @@ class poly_all:
                         for i in range(self.DR):
                                 self.pr.append(0)
                         x = 0
+                        magnitudeLC = self.LC[0][self.varNum]
+                        magnitudeLV = self.LV[0]
+                        # The list of values should not be different from each other by more than a magnitude of 2.
+                        for i in self.LV:
+                                if(abs(magnitudeLV * 100) < abs(i) or abs(magnitudeLV / 100) > abs(i)):
+                                        raise NameError("magnitude of values is larger than allowed: " + str(i))
                         for i in self.LC:
                                 if(len(i) != self.varNum+1):
-                                        raise NameError("length of tuple in list of coeficient is not correct in index: " + str(i))
-                                y = 1 # used for exact
-                                z = 1 # used for rounded values
-                                total = 0 # making sure degree is less than or equal to expected amount
+                                        raise NameError("length of tuple in list of coeficient is not correct: " + str(i))
+                                # The list of coefficients shouldn’t be different from each other by more than 2 orders of magnitude.
+                                if(abs(magnitudeLC * 100) < abs(i[self.varNum]) or abs(magnitudeLC / 100) > abs(i[self.varNum])):
+                                        raise NameError("magnitude of coefficient is larger than allowed: " + str(i))
+                                y = 1           # used for exact
+                                z = 1           # used for rounded values
+                                total = 0       # making sure degree is less than or equal to expected amount
                                 for j in range(len(i)-1):
                                         y = y * (self.LV[j] ** i[j])
                                         total = total + i[j]    # degree check
@@ -37,7 +46,10 @@ class poly_all:
                                                 raise NameError("degree is greater than expected")
                                 y = y * i[len(self.LV)]
                                 x = x + y
-                        self.pr[0] = round(x.numerator/x.denominator, 10)
+                        if(type(x) is Fraction):
+                                self.pr[0] = round(x.numerator/x.denominator, 10)
+                        else:
+                                self.pr[0] = round(x, 10)
 
                         x = 0
                         for k in range(1, self.DR):
