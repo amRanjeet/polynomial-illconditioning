@@ -1,6 +1,5 @@
 # poly_all -  all variable polynomials
 from fractions import Fraction
-from poly2 import poly2
 
 class poly_all:
         def __init__(self, degree, varNum, listCoeff, listofVal, digRound):
@@ -17,6 +16,7 @@ class poly_all:
                 self.LV = listofVal
                 self.DR = digRound
                 self.pr = []
+                self.frac = []
 
         def getEstimate(self):
                 def runEstimate():
@@ -48,6 +48,7 @@ class poly_all:
                                 x = x + y
                         if(type(x) is Fraction):
                                 self.pr[0] = round(x.numerator/x.denominator, 10)
+                                self.frac.append(x)
                         else:
                                 self.pr[0] = round(x, 10)
 
@@ -82,6 +83,9 @@ class poly_all:
                 print(self.LC)
                 print(self.LV)
                 print(self.DR)
+        def printExact(self):
+                print(self.frac)
+                print(round(self.frac[0].numerator/self.frac[0].denominator, 10))
 
 
     
@@ -89,7 +93,5 @@ class poly_all:
 if __name__ == '__main__':    
     x = poly_all(3, 2, [(3, 0, 5), (2, 1, 2), (1, 1, 1)], [Fraction(-1,3), Fraction(1, 7)], 6)
     x.getEstimate()
-    y = poly2(3, 2, [(3, 0, 5), (2, 1, 2), (1, 1, 1)], [Fraction(-1,3), Fraction(1, 7)],10)
-    y.getEstimate()
 
     
